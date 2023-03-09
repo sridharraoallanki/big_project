@@ -34,7 +34,7 @@ resources:
       type: github
       name: sridharraoallanki/big_project
       endpoint: sridharraoallanki
-      ref: refs/heads/$(branchSource)
+      ref: $(branchSource)
       
 stages:
 - stage:
