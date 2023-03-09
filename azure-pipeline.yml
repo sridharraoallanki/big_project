@@ -35,6 +35,8 @@ resources:
       name: sridharraoallanki/big_project
       endpoint: sridharraoallanki
       ref: $(branchSource)
+      pr:
+       - develop
       trigger:
        branches:
          include:
