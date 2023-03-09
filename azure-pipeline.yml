@@ -1,0 +1,60 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+# trigger:
+# - pull_request
+parameters:
+- name: Branch
+  displayName: Branch to Deploy
+  type: string
+  default: fetaure01
+  values:
+    - fetaure01
+    - Develop
+    - main
+variables:
+  branchName: ${{ parameters.Branch }}
+  # branchName: $(Build.SourceBranchName)
+# variables:
+#   branchName: ${{ trigger }}
+# trigger:
+# - main
+
+pool:
+  vmImage: windows-latest
+resources:
+  repositories:
+    - repository: newproject01
+      type: github
+      name: infy1501/newproject01
+      endpoint: infy1501
+      ref: refs/heads/$(branchName)
+      
+stages:
+- stage:
+  jobs:
+  - job:
+    steps:
+      # - checkout: self
+
+      - checkout: newproject01
+      - task: CopyFiles@2
+        inputs:
+          SourceFolder: '$(System.DefaultWorkingDirectory)/'
+          Contents: '**'
+          TargetFolder: '$(System.DefaultWorkingDirectory)/dist'
+      
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
+      - task: CmdLine@2
+        displayName: 'List files'
+        inputs:
+          script: |
+            for %%f in ( "$(Build.ArtifactStagingDirectory)\*" ) do @echo %%f
+      # - task: PowerShell@2
+      #   inputs:
+      #     filePath: 'newps.ps1'
