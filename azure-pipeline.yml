@@ -8,9 +8,9 @@ parameters:
 - name: Branch
   displayName: Branch to Deploy
   type: string
-  default: fetaure01
+  default: feature
   values:
-    - fetaure01
+    - feature
     - Develop
     - main
 variables:
@@ -25,10 +25,10 @@ pool:
   vmImage: windows-latest
 resources:
   repositories:
-    - repository: newproject01
+    - repository: big_project
       type: github
-      name: infy1501/newproject01
-      endpoint: infy1501
+      name: sridharraoallanki/big_project
+      endpoint: sridharraoallanki
       ref: refs/heads/$(branchName)
       
 stages:
@@ -38,7 +38,7 @@ stages:
     steps:
       # - checkout: self
 
-      - checkout: newproject01
+      - checkout: big_project
       - task: CopyFiles@2
         inputs:
           SourceFolder: '$(System.DefaultWorkingDirectory)/'
