@@ -40,7 +40,7 @@ resources:
       trigger:
        branches:
          include:
-           - develop     - 
+           - develop
       
 stages:
 - stage:
