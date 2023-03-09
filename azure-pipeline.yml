@@ -4,17 +4,22 @@
 # https://aka.ms/yaml
 # trigger:
 # - pull_request
-parameters:
-- name: Branch
-  displayName: Branch to Deploy
-  type: string
-  default: feature
-  values:
-    - feature
-    - Develop
-    - main
+pr:
+  branches:
+    include:
+    - '*'  
+# parameters:
+# - name: Branch
+#   displayName: Branch to Deploy
+#   type: string
+#   default: feature
+#   values:
+#     - feature
+#     - Develop
+#     - main
 variables:
-  branchName: ${{ parameters.Branch }}
+  branchSource: "$(Build.SourceBranch)"
+  # branchName: ${{ parameters.Branch }}
   # branchName: $(Build.SourceBranchName)
 # variables:
 #   branchName: ${{ trigger }}
@@ -29,7 +34,7 @@ resources:
       type: github
       name: sridharraoallanki/big_project
       endpoint: sridharraoallanki
-      ref: refs/heads/$(branchName)
+      ref: refs/heads/$(branchSource)
       
 stages:
 - stage:
