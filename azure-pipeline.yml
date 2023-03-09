@@ -7,7 +7,7 @@
 pr:
   branches:
     include:
-    - '*'  
+    - 'Develop'
 # parameters:
 # - name: Branch
 #   displayName: Branch to Deploy
